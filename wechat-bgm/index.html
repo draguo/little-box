@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信背景音乐</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <bgm path="http://7xiwyc.com1.z0.glb.clouddn.com/bgm.mp3"></bgm>
+</div>
+<!--组件部分-->
+<script type="text/x-template" id="music-template">
+    <div>
+        <audio id="bgm" class="media-audio" :src="path" preload loop="loop"></audio >
+    </div>
+</script>
+<script>
+    Vue.component('bgm', {
+        template: '#music-template',
+        props: ['path'],
+        mounted: function () {
+            this.audioPlay();
+        },
+        methods: {
+            audioPlay: function () {
+                var audio = document.getElementById("bgm");
+                audio.play();
+                document.addEventListener("WeixinJSBridgeReady", function () {
+                    audio.play();
+                }, false);
+                document.addEventListener('YixinJSBridgeReady', function() {
+                    audio.play();
+                }, false);
+            }
+        }
+    })
+</script>
+<!--结束-->
+<script>
+    new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
